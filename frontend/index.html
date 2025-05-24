@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Semantic Analytic – Report Search</title>
+</head>
+<body>
+<h2>Semantic Analytic: Report Search</h2>
+
+<label>Search term:</label>
+<input type="text" id="searchInput">
+
+<label>API version:</label>
+<select id="versionSelect">
+    <option value="v1">v1 - Exact match</option>    
+</select>
+
+<button onclick="searchReports()">Search</button>
+
+<hr>
+<div id="results"></div>
+
+<script>
+  async function searchReports() {
+    const inputQuery = document.getElementById('searchInput').value.trim();
+    const version = document.getElementById('versionSelect').value;
+    const url = `http://localhost:8000/${version}/search?q=${encodeURIComponent(inputQuery)}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = "";
+
+      // Show query used and result count
+      const info = document.createElement('p');
+      info.innerHTML = `<strong>Search term used:</strong> <span style="color: darkblue;">${data.query}</span><br><strong>Total results:</strong> ${data.total}`;
+      resultsDiv.appendChild(info);
+
+      if (data.total === 0) {
+        resultsDiv.innerHTML += "<em>No results found.</em>";
+        return;
+      }
+
+      data.results.forEach(report => {
+        const rawKeywords = report["keywords"] || "";
+        const keywords = rawKeywords.split(",").map(kw => kw.trim());
+
+        const highlighted = keywords.map(kw => {
+          return kw === data.query
+            ? `<span style="background-color: yellow; font-weight: bold;">${kw}</span>`
+            : kw;
+        });
+
+        const card = document.createElement('div');
+        card.innerHTML = `
+          <strong>${report["Report Name"]}</strong><br>
+          <em>View:</em> ${report["Report View"]}<br>
+          <b>ID:</b> ${report["ID Data Product"]}<br>
+          <b>Keywords:</b> ${highlighted.join(", ")}
+          ${report["score"] !== undefined ? `<br><b>Score:</b> ${report["score"].toFixed(4)}<br>` : ""}
+          <hr>
+        `;
+        resultsDiv.appendChild(card);
+      });
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      document.getElementById('results').innerHTML = "<em>Error fetching data from API.</em>";
+    }
+  }
+</script>
+
+</body>
+</html>
