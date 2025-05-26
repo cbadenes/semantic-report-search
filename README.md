@@ -62,7 +62,7 @@ cd semantic-report-search/
 
 ```bash
 # Create virtual environment
-python -m venv .venv
+python3.9 -m venv .venv
 
 # Activate it
 # On Linux/Mac:
