@@ -4,6 +4,7 @@ pandas
 openpyxl
 jinja2
 python-multipart
+blis==1.1.0
 spacy
 whoosh
 python-Levenshtein

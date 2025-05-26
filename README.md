@@ -77,6 +77,7 @@ source .venv/bin/activate
 ```bash
 # Install all Python dependencies
 pip install --upgrade pip
+pip install --upgrade setuptools wheel
 pip install -r requirements.txt
 
 # Download models
