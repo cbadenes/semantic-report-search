@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .search_v1 import router as router_v1
+from .search_v0 import router as router_v0
 
 app = FastAPI()
 
@@ -13,4 +13,4 @@ app.add_middleware(
 )
 
 # Include versioned routers
-app.include_router(router_v1, prefix="/v1")
+app.include_router(router_v0, prefix="/v0")
