@@ -19,5 +19,5 @@ notebook
 ipykernel
 nltk
 PyMuPDF
-jupyter-ai[all]
 python-dotenv
+tomotopy
