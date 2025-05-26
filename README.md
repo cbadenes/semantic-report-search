@@ -100,10 +100,10 @@ python setup_environment.py
 # Start the backend
 python run_api.py
 ```
-The API will be available at: http://localhost:8000
+The API will be available at: http://localhost:8000/v0/search
 
 ```bash
-GET /search?q=revenue
+GET http://localhost:8000/v0/search?q=Digital
 ```
 
 ---
