@@ -13,32 +13,9 @@ from rank_bm25 import BM25Okapi
 
 router = APIRouter()
 
-# Path to the reports.csv file
-reports_path = Path(__file__).resolve().parent.parent / "data" / "api" / "reports.csv"
-
-df = pd.read_csv(reports_path).fillna("")
-
-# Create tokenized keywords for BM25
-df['keyword_list'] = df['keywords'].apply(lambda x: [kw.strip().lower() for kw in x.split(',') if kw.strip()])
-tokenized_corpus = df['keyword_list'].tolist()
-bm25 = BM25Okapi(tokenized_corpus)
 
 # Load Flair embedding model
 embedding = WordEmbeddings('en')  # or 'glove', 'news-forward'
-
-# Precompute keyword embeddings
-keyword_set = set()
-for kw_list in df["keywords"]:
-    keyword_set.update([k.strip().lower() for k in kw_list.split(",") if k.strip()])
-keywords = sorted(keyword_set)
-
-keyword_vectors = {}
-for kw in keywords:
-    sentence = Sentence(kw, use_tokenizer=True)
-    embedding.embed(sentence)
-    if sentence and sentence[0].embedding is not None:
-        vector = np.mean([token.embedding.cpu().numpy() for token in sentence], axis=0)
-        keyword_vectors[kw] = vector
 
 @router.get("/search")
 def search(q: str = Query("")):
@@ -49,13 +26,40 @@ def search(q: str = Query("")):
     if not query_sentence or query_sentence[0].embedding is None:
         return {"query": q, "results": [], "total": 0}
 
-    query_vector = np.mean([token.embedding.cpu().numpy() for token in query_sentence], axis=0).reshape(1, -1)
+    # Path to the reports.csv file
+    reports_path = Path(__file__).resolve().parent.parent / "data" / "api" / "reports.csv"
 
+    df = pd.read_csv(reports_path).fillna("")
+
+    # Create tokenized keywords for BM25
+    df['keyword_list'] = df['keywords'].apply(lambda x: [kw.strip().lower() for kw in x.split(',') if kw.strip()])
+    tokenized_corpus = df['keyword_list'].tolist()
+    bm25 = BM25Okapi(tokenized_corpus)
+
+    # Precompute keyword embeddings
+    keyword_set = set()
+    for kw_list in df["keywords"]:
+        keyword_set.update([k.strip().lower() for k in kw_list.split(",") if k.strip()])
+    keywords = sorted(keyword_set)
+
+    keyword_vectors = {}
+    for kw in keywords:
+        sentence = Sentence(kw, use_tokenizer=True)
+        embedding.embed(sentence)
+        if sentence and sentence[0].embedding is not None:
+            vector = np.mean([token.embedding.cpu().numpy() for token in sentence], axis=0)
+            keyword_vectors[kw] = vector
+
+
+
+    query_vector = np.mean([token.embedding.cpu().numpy() for token in query_sentence], axis=0).reshape(1, -1)
+    
     # Compute similarity between query and all keywords
     similarities = {}
     for kw, vec in keyword_vectors.items():
         sim = cosine_similarity(query_vector, vec.reshape(1, -1))[0][0]
         similarities[kw] = sim
+
 
     best_keyword = max(similarities, key=similarities.get)
     best_score = similarities[best_keyword]
