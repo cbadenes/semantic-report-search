@@ -106,7 +106,7 @@ The API will be available at: http://localhost:8000/v0/search
 GET http://localhost:8000/v0/search?q=Digital
 ```
 
-### Test the Search API from the Frontend Interface
+### 6.Test the Search API from the Frontend Interface
 
 To explore the search results via a web interface:
 
