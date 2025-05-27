@@ -106,6 +106,24 @@ The API will be available at: http://localhost:8000/v0/search
 GET http://localhost:8000/v0/search?q=Digital
 ```
 
+### Test the Search API from the Frontend Interface
+
+To explore the search results via a web interface:
+
+1. Open the file frontend/index.html in your browser (right-click → *"Open with Live Server"* in VS Code, or double-click to open it locally).
+2. Type a search query in the *Search term* input box.
+3. Choose the desired *API version* from the dropdown:
+    - v0: Exact match
+    - v1.4: Autocomplete support
+    - v2.1: Word Embeddings
+    - etc.
+4. Click the Search button to query the backend.
+5. Results will be displayed dynamically, including matched report names, views, and highlighted keywords.
+
+
+Make sure the API backend (python run_api.py) is running on http://localhost:8000 before you open the page.
+Otherwise, the frontend won't be able to fetch data.
+
 ---
 
 This setup allows you to write ideas in natural language and use AI to turn them into code — great for learning and understanding the logic behind programming.
