@@ -110,7 +110,7 @@ GET http://localhost:8000/v0/search?q=Digital
 
 To explore the search results via a web interface:
 
-1. Open the file frontend/index.html in your browser (right-click → *"Open with Live Server"* in VS Code, or double-click to open it locally).
+1. Open the file *frontend/index.html* in your browser (right-click → *"Open with Live Server"* in VS Code, or double-click to open it locally).
 2. Type a search query in the *Search term* input box.
 3. Choose the desired *API version* from the dropdown:
     - v0: Exact match
