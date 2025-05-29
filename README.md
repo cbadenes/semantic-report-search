@@ -12,6 +12,19 @@ Initially, it supports tag-based search (by Area, Department, Team) and will evo
 
 ### 0. Prepare an AI-assisted Code Environment 
 
+#### Install Python 3.9 (on Windows 10)
+Before continuing, you need Python 3.9 installed:
+    1. Download it from: https://www.python.org/downloads/release/python-390/
+    2. Run the installer and check the option `Add Python 3.9 to PATH`
+    3. Click Install Now
+    4. After it finishes, verify installation in a terminal:
+```bash
+    python --version
+```
+You should see something like: `Python 3.9.x`
+
+Now you can proceed with the rest of the environment setup.
+
 ##### Sign Up for GitHub
 
 If you don’t have a GitHub account yet:
@@ -25,6 +38,26 @@ If you don’t have a GitHub account yet:
 - Click “**Get Student Benefits**”
 - Use your school email or upload a document to verify your student status.
 - Once approved, you'll get **GitHub Copilot for free** (for 1 year).
+
+#### Or Use GitHub Copilot without a Student Account (Optional)
+
+If you don’t have access to the GitHub Student Developer Pack, you can still use GitHub Copilot for free for 30 days with any personal account.
+
+###### Start a Free Trial of GitHub Copilot
+1. Go to: https://github.com/features/copilot
+2. Click on “Start my free trial”
+3. Enter your payment method (credit or debit card)
+4. Enjoy 30 days of full access to Copilot and Copilot Chat
+
+You won’t be charged if you cancel before the end of the trial.
+
+###### Cancel the Subscription to Avoid Charges
+To cancel before the trial ends:
+1. Visit: https://github.com/settings/billing
+2. Click on “Copilot”
+3. Select “Cancel subscription” and confirm
+
+This lets you use Copilot’s AI features inside VS Code for a full month — ideal for completing exercises or trying out Copilot's capabilities.
 
 ##### Enable GitHub Copilot
 
@@ -62,7 +95,7 @@ cd semantic-report-search/
 
 ```bash
 # Create virtual environment
-python3.9 -m venv .venv
+python -m venv .venv
 
 # Activate it
 # On Linux/Mac:
