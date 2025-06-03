@@ -87,7 +87,7 @@ Then:
 ### 1. Clone or unzip this project
 
 ```bash
-git clone https://github.com/cbadenes/semantic-report-search.git
+git clone https://github.com/cbadenes/semantic-report-search.git  --config core.autocrlf=false
 cd semantic-report-search/
 ```
 
