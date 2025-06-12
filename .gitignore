@@ -7,6 +7,10 @@ data/models
 # C extensions
 *.so
 
+#special files
+data/pdf/USALI - 11th Edition.pdf
+data/api/keywords_alphabetical.csv
+
 # Distribution / packaging
 .Python
 build/
