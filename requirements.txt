@@ -22,3 +22,9 @@ PyMuPDF
 python-dotenv
 tomotopy
 pyldavis
+langchain
+chromadb
+pandas
+openpyxl
+tiktoken
+sentence_transformers
