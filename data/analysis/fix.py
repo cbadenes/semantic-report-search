@@ -1,6 +1,6 @@
 import nbformat
 
-path = "43_rag.ipynb"
+path = "32_text_generation.ipynb"
 
 nb = nbformat.read(path, as_version=4)
 
